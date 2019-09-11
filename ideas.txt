@@ -1,0 +1,121 @@
+data new_data;
+    set old_data;
+run;
+
+new_data <- old_data
+
+
+
+data new_data;
+    set old_data;
+    total_income = wages + benefits;
+run;
+
+new_data <- old_data %>% 
+    mutate(total_income = wages + benefits)
+
+
+
+data new_data (keep = id);
+    set old_data (drop = job_title);
+run;
+
+new_data <- old_data %>%
+    select(-job_title)
+    select(id)
+
+
+
+
+
+data new_data;
+    set old_data;
+    if Sex = "M";
+run;
+
+new_data <- old_data %>%
+    filter(Sex == "M")
+
+
+
+data new_data;
+    set old_data;
+    if job_title = "Plumber" or job_title = "Teacher";
+    if income >= 20000 and income <= 50000; 
+run;
+
+new_data <- old_data %>%
+    filter(job_title = "Plumber" | job_title = "Teacher") %>%
+    filter(income >=20000 & income <= 50000)
+    
+
+
+
+data new_data;
+    set old_data;
+    if find(job_title , "Plumber");
+run;
+
+new_data <- old_data %>%
+    filter(str_detect(job_title , "Plumber"))
+
+
+
+data new_data;
+    set old_data;
+    rename old_name = new_name;
+run;
+
+new_data <- old_data %>%
+    filter(new_name = old_name)
+
+
+
+proc freq data=old_data;
+    table job_type;
+run;
+
+old_data %>% count(job_type) %>%
+    mutate(freq = n/sum(n))
+
+
+proc sort data=old_data out=new_data;
+    by id DESCENDING income;
+run;
+
+new_data <- old_data %>%
+    arrange(id , -income)
+
+NODUPKEY - %>% group_by(mpg) %>% slice(1)
+
+
+data new_data;
+    set old_data;
+    by id;
+    if first.id;
+run;
+
+new_data <- old_data %>%
+    group_by(id) %>%
+    slice(1)
+
+
+
+proc summary data = old_data NWAY;
+    class id;
+    var income;
+    output out = new_data mean(income) = avg_income;
+run;
+
+new_data <- old_data %>%
+    group_by(id) %>%
+    summarise(avg_income = mean(income))
+
+
+
+
+
+
+
+
+
