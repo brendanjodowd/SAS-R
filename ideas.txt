@@ -1,19 +1,12 @@
+#############################################################################
+DEALING WITH DATAFRAMES, DROPPING, KEEPING AND RENAMING VARIABLES
+#############################################################################
+
 data new_data;
     set old_data;
 run;
 
 new_data <- old_data
-
-
-
-data new_data;
-    set old_data;
-    total_income = wages + benefits;
-run;
-
-new_data <- old_data %>% 
-    mutate(total_income = wages + benefits)
-
 
 
 data new_data (keep = id);
@@ -23,9 +16,34 @@ run;
 new_data <- old_data %>%
     select(-job_title)
     select(id)
+    
+    
+data new_data (drop = temp:);
+    set old_data;
+run;
+
+new_data <- old_data %>%
+    select(-starts_with("temp"))
+
+    
+    
+data new_data;
+    set old_data;
+    rename old_name = new_name;
+run;
+
+new_data <- old_data %>%
+    filter(new_name = old_name)
 
 
 
+
+
+
+
+#############################################################################
+CONDITIONAL FILTERING 
+#############################################################################
 
 
 data new_data;
@@ -37,6 +55,14 @@ new_data <- old_data %>%
     filter(Sex == "M")
 
 
+data new_data;
+    set old_data;
+    if year in (2010,2011,2012);
+run;
+
+new_data <- old_data %>%
+    filter(year %in% c(2010,2011,2012))
+
 
 data new_data;
     set old_data;
@@ -45,11 +71,47 @@ data new_data;
 run;
 
 new_data <- old_data %>%
-    filter(job_title = "Plumber" | job_title = "Teacher") %>%
+    filter(job_title == "Plumber" | job_title == "Teacher") %>%
     filter(income >=20000 & income <= 50000)
+
+
+data new_data;
+    set old_data;
+    by id DESCENDING income; 
+    if first.id; 
+run;
+
+new_data <- old_data %>%
+  group_by(id) %>% 
+  slice(which.max(income)) 
+ 
+new_data <- old_data %>%
+  group_by(id) %>% 
+  filter(income == max(income , na.rm = TRUE)) 
+
+# If your data is ordered using arrange, you can use slice(1) and slice(n()) for
+# first and last rows in each group, but which.min() and which.max() are nice too.
+# Using max/min in filter also works for strings (alphabetical order).
+  
+
+#############################################################################
+NEW VARIABLES, CONDITIONAL EDITING
+#############################################################################
+
+data new_data;
+    set old_data;
+    total_income = wages + benefits;
+run;
+
+new_data <- old_data %>% 
+    mutate(total_income = wages + benefits)
     
 
 
+
+#############################################################################
+DEALING WITH STRINGS
+#############################################################################
 
 data new_data;
     set old_data;
@@ -61,14 +123,10 @@ new_data <- old_data %>%
 
 
 
-data new_data;
-    set old_data;
-    rename old_name = new_name;
-run;
 
-new_data <- old_data %>%
-    filter(new_name = old_name)
-
+#############################################################################
+PROC SORT AND FREQ
+#############################################################################
 
 
 proc freq data=old_data;
@@ -115,7 +173,16 @@ new_data <- old_data %>%
 
 
 
+%macro proc_con_fxn(dataset_name);
+proc contents data=&dataset_name;
+run;
+%mend;
 
+simple_table_function <- function(df){
+  return(summary(df))
+}
+
+simple_table_function(iris)
 
 
 
