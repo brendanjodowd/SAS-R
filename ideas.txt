@@ -33,7 +33,7 @@ data new_data;
 run;
 
 new_data <- old_data %>%
-    filter(new_name = old_name)
+    rename(new_name = old_name)
 
 
 
