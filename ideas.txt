@@ -75,6 +75,19 @@ new_data <- old_data %>%
     filter(income >=20000 & income <= 50000)
 
 
+
+data new_data;
+    set old_data;
+    by id;
+    if first.id;
+run;
+
+new_data <- old_data %>%
+    group_by(id) %>%
+    slice(1)
+
+
+
 data new_data;
     set old_data;
     by id DESCENDING income; 
@@ -147,15 +160,6 @@ new_data <- old_data %>%
 NODUPKEY - %>% group_by(mpg) %>% slice(1)
 
 
-data new_data;
-    set old_data;
-    by id;
-    if first.id;
-run;
-
-new_data <- old_data %>%
-    group_by(id) %>%
-    slice(1)
 
 
 
