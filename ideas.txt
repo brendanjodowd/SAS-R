@@ -135,7 +135,12 @@ new_data <- old_data %>%
     filter(str_detect(job_title , "Plumber"))
 
 
+* remove/replace part of a string
+* combine strings
+* extract digits
+* strings beginning with
 
+### USE TOP_N as well
 
 #############################################################################
 PROC SORT AND FREQ
