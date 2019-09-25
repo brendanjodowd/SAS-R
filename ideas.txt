@@ -193,5 +193,11 @@ simple_table_function <- function(df){
 
 simple_table_function(iris)
 
+#############################################################################
+OTHER BITS
+#############################################################################
 
-
+how to input from CSV
+how to create a simple dataset
+formatting data, e.g. currency, decimal places
+Rounding
