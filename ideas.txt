@@ -1,4 +1,21 @@
 #############################################################################
+OTHER BITS
+#############################################################################
+
+how to input from CSV
+how to create a simple dataset
+formatting data, e.g. currency, decimal places
+Rounding
+
+Conversion between char and num
+Number of words in string (str_count, countw)
+libname
+working directory?
+upcase lowcase , toupper tolower
+sum across columns, max of two variables
+lag function, refer to previous row, 
+
+#############################################################################
 DEALING WITH DATAFRAMES, DROPPING, KEEPING AND RENAMING VARIABLES
 #############################################################################
 
@@ -193,11 +210,4 @@ simple_table_function <- function(df){
 
 simple_table_function(iris)
 
-#############################################################################
-OTHER BITS
-#############################################################################
 
-how to input from CSV
-how to create a simple dataset
-formatting data, e.g. currency, decimal places
-Rounding
