@@ -5,4 +5,4 @@ Uses tidyverse throughout.
 
 Suggestions, thoughts and corrections welcome!
 
-![Cheatsheet thumbnail](/images/sas_r_image.png)
+[[[/images/sas_r_image.png]]](https://github.com/brendanjodowd/SAS-R/blob/master/sas-r%20cheatsheet.pdf) 
