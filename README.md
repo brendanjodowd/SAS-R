@@ -1,2 +1,4 @@
 # SAS-R
-Work in progress, hoping to develop a cheat sheet comparing commonly used SAS commands to equivalents in R
+A handy guide to familiarise SAS users with R. 
+Uses tidyverse throughout.
+Suggestions, thoughts and corrections welcome!
